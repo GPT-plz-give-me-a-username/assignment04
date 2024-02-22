@@ -11,21 +11,47 @@ format:
 
 ## Source of Data
 
-*https://catalog.data.gov/dataset/annual-electricity-price-by-state*
+*??*
 
 ## Libraries
 
 ```{r}
 library(tidyverse)
-library(readxl)
+library(haven)
 ```
 
-## Exercise 01
+## Data preparation
 
 ```{r}
-data <- read_excel("data/avgprice_annual.xlsx",range=cell_rows(2:4607))
+qog <- read_dta("data/idm_qog.dta")
+qog <- qog %>% 
+  select(year, 
+         country_name = cname, 
+         gdp_per_capita = gle_cgdpc, 
+         democracy = chga_demo, 
+         transparency_index = diat_ti, 
+         new_busi_density = wdi_busden) 
 ```
 
 ## Exercise 03
 
 The message says "The following paths are ignored by one of your .gitignore files: data"
+
+## Exercise 04; graph 1
+
+```{r}
+qog %>% 
+  filter(year==2008) %>% 
+  ggplot(aes(gdp_per_capita)) +
+  geom_histogram(bins = 80,fill="deepskyblue3",alpha=0.7)+
+  labs(
+    title = "Distribution of countries' GDP per capita",
+    subtitle = "US Dollar($)",
+    y = "Frequency",
+    x = "GDP per capita",
+    caption = "Source: The Quality of Government Basic Dataset (2023)"
+  )
+
+  
+```
+
