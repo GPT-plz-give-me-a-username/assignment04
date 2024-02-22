@@ -30,7 +30,9 @@ qog <- qog %>%
          gdp_per_capita = gle_cgdpc, 
          democracy = chga_demo, 
          transparency_index = diat_ti, 
-         new_busi_density = wdi_busden) 
+         new_busi_density = wdi_busden,
+         level_of_democracy = ht_ipolity2
+         ) 
 ```
 
 ## Exercise 03
@@ -74,6 +76,23 @@ qog %>%
 ```
 
 
+```{r}
+qog %>% ggplot(aes(x = transparency_index, y = new_busi_density))+
+  geom_point(aes(color = level_of_democracy, size = gdp_per_capita),
+             ) +
+  geom_smooth(method = "lm") +
+  scale_y_log10() +
+  xlab("Transparency index") +
+  ylab("New business density") +
+  labs(title = "The Relationship Between Transparancy and Entrepreneurship",
+       subtitle = "Can information transparancy enhance business growth?",
+       caption = "Data Source: The Quality of Government Basic Dataset (2023)") +
+  labs(color = "Level of democracy", size = "GDP per Capita") +
+  theme(
+    legend.key = element_blank(),
+    legend.key.size = unit(0.45, "cm")
+  )
 
+```
 
 
