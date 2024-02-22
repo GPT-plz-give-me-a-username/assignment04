@@ -52,6 +52,28 @@ qog %>%
     caption = "Source: The Quality of Government Basic Dataset (2023)"
   )
 
-  
 ```
+
+
+```{r}
+qog %>% 
+  filter(year==2008) %>% 
+  mutate(chrdemo = case_when(
+    democracy==0 ~ "Dictatorship",
+    democracy==1 ~ "Democracy")) %>%
+  filter(chrdemo!=is.na(chrdemo)) %>% 
+  ggplot(aes(chrdemo,gdp_per_capita))+
+  geom_boxplot(aes(fill=chrdemo))+
+  labs(
+    title = "GDP per capita by regime types",
+    subtitle = "US Dollar($)",
+    y = "GDP per capita",
+    caption = "Source: The Quality of Government Basic Dataset (2023)"
+  )
+
+```
+
+
+
+
 
