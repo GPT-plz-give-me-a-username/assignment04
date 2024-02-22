@@ -10,8 +10,7 @@ format:
 ---
 
 ## Source of Data
-
-*??*
+Quality of Government Basic Dataset (2023)
 
 ## Libraries
 
@@ -35,12 +34,16 @@ qog <- qog %>%
          ) 
 ```
 
-## Exercise 03
+### Exercise 03
 
 The message says "The following paths are ignored by one of your .gitignore files: data"
 
-## Exercise 04; graph 1
+### Exercise 04: Data visualization
 
+## Why democracies have better economic performance? One explanation
+**The Story:** The distribution of wealth is extremely unequal. Most countries are poor, while few are rich. However, democracies exhibit significantly higher economic performance than autocracies. What is the mechanism behind this difference? This study proposes one possible explanation: democracies feature high information transparency, which can reduce corruption and improve the business environment. Consequently, enterprises find it easier to emerge and grow in democracies compared to autocracies.
+
+### The global distribution of GDP per Capita
 ```{r}
 qog %>% 
   filter(year==2008) %>% 
@@ -57,6 +60,7 @@ qog %>%
 ```
 
 
+### The difference of GDP per Capita between two political systems
 ```{r}
 qog %>% 
   filter(year==2008) %>% 
@@ -75,7 +79,7 @@ qog %>%
 
 ```
 
-
+### The relationship between transparency and entrepreneurship
 ```{r}
 qog %>% ggplot(aes(x = transparency_index, y = new_busi_density))+
   geom_point(aes(color = level_of_democracy, size = gdp_per_capita),
@@ -94,5 +98,7 @@ qog %>% ggplot(aes(x = transparency_index, y = new_busi_density))+
   )
 
 ```
+As shown in this graph, the transparency index has a positive linear correlation with the logarithm base 10 of new business density, which aligns with our theory. Additionally, points in the upper part of the graph are larger than points in the lower part, on average, indicating that GDP per capita has a positive correlation with new business density. Moreover, points in the southwest part of the graph are darker than points in the northeast part, which means that autocracies have both a lower transparency index and lower GDP per capita.
 
-
+### Policy Relevance
+Therefore, to improve the performance of the developing world and reduce the global socioeconomic inequality, one possible way is supporting the establishment of robust democratic systems among developing countries. However, for countries where autocratic systems are entrenched, one more realistic way is to leverage the influence of international organizations to increase the transparency level of those countries.
