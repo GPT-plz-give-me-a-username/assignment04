@@ -48,14 +48,30 @@ The message says "The following paths are ignored by one of your .gitignore file
 ### The global distribution of GDP per Capita
 
 ```{r}
+qog_2008 <- qog %>% 
+  filter(year == 2008) 
+
+median_x <- median(qog_2008$gdp_per_capita, na.rm = TRUE)
+
 qog %>% 
   filter(year==2008) %>% 
   ggplot(aes(gdp_per_capita)) +
-  geom_histogram(bins = 80,fill="deepskyblue3",alpha=0.7)+
+  geom_histogram(bins = 80,fill="deepskyblue3",alpha=0.7) +
+  geom_vline(
+    xintercept = median_x,
+    color = "gold", 
+    linetype = "dashed") +
+  geom_text(
+    aes(x = median_x, y = 0, label = round(median_x, 2)), 
+    hjust = -0.5,
+    vjust = -16,
+    color = "orange",
+    size = 4
+  ) +
   theme_minimal()+
-  scale_y_continuous(limits = c(0, 40))+
+  scale_y_continuous(limits = c(0, 40)) +
   labs(
-    title = "Distribution of countries' GDP per capita",
+    title = "Distribution of countries' GDP per capita in 2008",
     subtitle = "US Dollar($)",
     y = "Frequency",
     x = "GDP per capita",
@@ -63,6 +79,8 @@ qog %>%
   ) 
 
 ```
+
+As shown in this histogram, there is a wide range of GDP per capita among countries, ranging from almost zero to more than 100,000. Additionally, the histogram is severely right-skewed, with half of the countries having a GDP per capita lower than $6796.41 in 2008. This indicates that the majority of countries are poor, while only a few are considered wealthy.
 
 ### The difference of GDP per Capita between two political systems
 
@@ -76,15 +94,21 @@ qog %>%
   ggplot(aes(chrdemo,gdp_per_capita))+
   geom_boxplot(aes(fill=chrdemo))+
   theme_minimal()+
-  scale_fill_manual(values = c( "#CCEDB1", "#41B7C4"))+
+  scale_fill_manual(values = c( "gold", "deepskyblue3"))+
   labs(
-    title = "GDP per capita by regime types",
+    title = "GDP per capita by regime types in 2008",
     subtitle = "US Dollar($)",
     y = "GDP per capita",
     caption = "Source: The Quality of Government Basic Dataset (2023)"
-  )
+  ) +
+  theme(
+    legend.position="none",
+    axis.title.x = element_blank()
+    )
 
 ```
+
+The box plot shows that while the variation is more severe, democracies have a higher mean GDP per capita than autocracies. Additionally, both democracies and autocracies have several instances of over-performance in economic performance. However, the 75th percentile GDP per capita of autocracies is just close to the average GDP per capita of democracies. In conclusion, democracies generally exhibit better economic performance than autocracies, on average.
 
 ### The relationship between democracy and transparency
 
@@ -97,11 +121,13 @@ qog %>%
   theme_minimal()+
   labs(
   title = "The relationship between Transparency and Democracy",
-       subtitle = "Democracies on average have higher level of transparency",
+       subtitle = "Evidence from data in 2008",
        x = "Level of Democracy",
        y = "Transparency index",
        caption = "Source: The Quality of Government Basic Dataset (2023)")
 ```
+
+This line chart shows that as the level of democracy increases, the transparency index of countries also increases, although there are some degrees of variation. In other words, democracy has a positive correlation with information transparency. This relationship may be due to open and competitive political processes, freedom of speech, the rule of law, and civil society.
 
 ### The relationship between transparency and entrepreneurship
 
@@ -110,10 +136,11 @@ qog %>% ggplot(aes(x = transparency_index, y = new_busi_density))+
   geom_point(aes(color = level_of_democracy, size = gdp_per_capita),
              alpha = 0.3
              ) +
-  geom_smooth(method = "lm", se = FALSE, size = 0.5) +
+  geom_smooth(method = "lm", se = FALSE, size = 0.5, color = "gold") +
   scale_y_log10() +
+  scale_x_continuous(limits = c(20,NA)) +
   xlab("Transparency index") +
-  ylab("New business density") +
+  ylab("New business density (log10)") +
   labs(title = "The Relationship Between Transparancy and Entrepreneurship",
        subtitle = "Can information transparancy enhance business growth?",
        caption = "Data Source: The Quality of Government Basic Dataset (2023)") +
