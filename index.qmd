@@ -70,6 +70,8 @@ qog %>%
   filter(chrdemo!=is.na(chrdemo)) %>% 
   ggplot(aes(chrdemo,gdp_per_capita))+
   geom_boxplot(aes(fill=chrdemo))+
+  theme_minimal()+
+  scale_fill_manual(values = c( "#CCEDB1", "#41B7C4"))+
   labs(
     title = "GDP per capita by regime types",
     subtitle = "US Dollar($)",
@@ -78,6 +80,22 @@ qog %>%
   )
 
 ```
+
+```{r}
+qog %>%
+  filter(year==2008) %>% 
+  ggplot(aes(x=level_of_democracy)) +
+  geom_line(aes(y=transparency_index),color="#41B7C4") +
+  scale_y_continuous(limits = c(0,100))+
+  theme_minimal()+
+  labs(
+  title = "Transparency and Level of Democracy",
+       subtitle = "Democracies on average have higher level of transparency",
+       x = "Level of Democracy",
+       y = NULL,
+       caption = "Source: The Quality of Government Basic Dataset (2023)")
+```
+
 
 ### The relationship between transparency and entrepreneurship
 ```{r}
