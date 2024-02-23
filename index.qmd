@@ -52,13 +52,15 @@ qog %>%
   filter(year==2008) %>% 
   ggplot(aes(gdp_per_capita)) +
   geom_histogram(bins = 80,fill="deepskyblue3",alpha=0.7)+
+  theme_minimal()+
+  scale_y_continuous(limits = c(0, 40))+
   labs(
     title = "Distribution of countries' GDP per capita",
     subtitle = "US Dollar($)",
     y = "Frequency",
     x = "GDP per capita",
     caption = "Source: The Quality of Government Basic Dataset (2023)"
-  )
+  ) 
 
 ```
 
@@ -84,6 +86,8 @@ qog %>%
 
 ```
 
+### The relationship between democracy and transparency
+
 ```{r}
 qog %>%
   filter(year==2008) %>% 
@@ -92,10 +96,10 @@ qog %>%
   scale_y_continuous(limits = c(0,100))+
   theme_minimal()+
   labs(
-  title = "Transparency and Level of Democracy",
+  title = "The relationship between Transparency and Democracy",
        subtitle = "Democracies on average have higher level of transparency",
        x = "Level of Democracy",
-       y = NULL,
+       y = "Transparency index",
        caption = "Source: The Quality of Government Basic Dataset (2023)")
 ```
 
@@ -117,7 +121,8 @@ qog %>% ggplot(aes(x = transparency_index, y = new_busi_density))+
   theme(
     legend.key = element_blank(),
     legend.key.size = unit(0.45, "cm")
-  )
+  ) +
+  theme_minimal()
 
 ```
 
