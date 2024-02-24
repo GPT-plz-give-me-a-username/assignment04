@@ -92,9 +92,10 @@ qog %>%
     democracy==1 ~ "Democracy")) %>%
   filter(chrdemo!=is.na(chrdemo)) %>% 
   ggplot(aes(chrdemo,gdp_per_capita))+
-  geom_boxplot(aes(fill=chrdemo))+
+  geom_boxplot(aes(fill = chrdemo, color = chrdemo))+
   theme_minimal()+
   scale_fill_manual(values = c( "gold", "deepskyblue3"))+
+  scale_color_manual(values = c( "orange", "#41B7C4"))+
   labs(
     title = "GDP per capita by regime types in 2008",
     subtitle = "US Dollar($)",
