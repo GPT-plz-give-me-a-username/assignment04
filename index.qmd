@@ -11,7 +11,7 @@ format:
 
 ## Source of Data
 
-Quality of Government Basic Dataset (2023)
+[Quality of Government Basic Dataset (2023)](https://www.gu.se/en/quality-government/qog-data/data-downloads/basic-dataset)
 
 ## Libraries
 
@@ -45,7 +45,7 @@ The message says "The following paths are ignored by one of your .gitignore file
 
 **The Story:** The distribution of wealth is extremely unequal. Most countries are poor, while few are rich. However, democracies exhibit significantly higher economic performance than autocracies. What is the mechanism behind this difference? This study proposes one possible explanation: democracies feature high information transparency, which can reduce corruption and improve the business environment. Consequently, enterprises find it easier to emerge and grow in democracies compared to autocracies.
 
-### The global distribution of GDP per Capita
+### The global distribution of GDP per capita
 
 ```{r}
 qog_2008 <- qog %>% 
@@ -71,7 +71,7 @@ qog %>%
   theme_minimal()+
   scale_y_continuous(limits = c(0, 40)) +
   labs(
-    title = "Distribution of countries' GDP per capita in 2008",
+    title = "Distribution of Countries' GDP Per Capita In 2008",
     subtitle = "US Dollar($)",
     y = "Frequency",
     x = "GDP per capita",
@@ -82,13 +82,13 @@ qog %>%
 
 As shown in this histogram, there is a wide range of GDP per capita among countries, ranging from almost zero to more than 100,000. Additionally, the histogram is severely right-skewed, with half of the countries having a GDP per capita lower than $6796.41 in 2008. This indicates that the majority of countries are poor, while only a few are considered wealthy.
 
-### The difference of GDP per Capita between two political systems
+### The difference of GDP per capita between two political systems
 
 ```{r}
 qog %>% 
   filter(year==2008) %>% 
   mutate(chrdemo = case_when(
-    democracy==0 ~ "Dictatorship",
+    democracy==0 ~ "Autocracy",
     democracy==1 ~ "Democracy")) %>%
   filter(chrdemo!=is.na(chrdemo)) %>% 
   ggplot(aes(chrdemo,gdp_per_capita))+
@@ -97,7 +97,7 @@ qog %>%
   scale_fill_manual(values = c( "gold", "deepskyblue3"))+
   scale_color_manual(values = c( "orange", "#41B7C4"))+
   labs(
-    title = "GDP per capita by regime types in 2008",
+    title = "GDP Per Capita By Regime Types In 2008",
     subtitle = "US Dollar($)",
     y = "GDP per capita",
     caption = "Source: The Quality of Government Basic Dataset (2023)"
@@ -121,9 +121,9 @@ qog %>%
   scale_y_continuous(limits = c(0,100))+
   theme_minimal()+
   labs(
-  title = "The relationship between Transparency and Democracy",
+  title = "The Relationship Between Transparency and Democracy",
        subtitle = "Evidence from data in 2008",
-       x = "Level of Democracy",
+       x = "Level of democracy",
        y = "Transparency index",
        caption = "Source: The Quality of Government Basic Dataset (2023)")
 ```
@@ -145,7 +145,7 @@ qog %>% ggplot(aes(x = transparency_index, y = new_busi_density))+
   labs(title = "The Relationship Between Transparancy and Entrepreneurship",
        subtitle = "Can information transparancy enhance business growth?",
        caption = "Data Source: The Quality of Government Basic Dataset (2023)") +
-  labs(color = "Level of democracy", size = "GDP per Capita") +
+  labs(color = "Level of democracy", size = "GDP per capita") +
   theme(
     legend.key = element_blank(),
     legend.key.size = unit(0.45, "cm")
