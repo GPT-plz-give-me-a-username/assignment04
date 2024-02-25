@@ -54,9 +54,9 @@ qog_2008 <- qog %>%
 median_x <- median(qog_2008$gdp_per_capita, na.rm = TRUE)
 
 qog %>% 
-  filter(year==2008) %>% 
+  filter(year == 2008) %>% 
   ggplot(aes(gdp_per_capita)) +
-  geom_histogram(bins = 80,fill="deepskyblue3",alpha=0.7) +
+  geom_histogram(bins = 80,fill = "deepskyblue3", alpha = 0.7) +
   geom_vline(
     xintercept = median_x,
     color = "gold", 
@@ -68,7 +68,7 @@ qog %>%
     color = "orange",
     size = 4
   ) +
-  theme_minimal()+
+  theme_minimal() +
   scale_y_continuous(limits = c(0, 40)) +
   labs(
     title = "Distribution of Countries' GDP Per Capita In 2008",
@@ -80,22 +80,22 @@ qog %>%
 
 ```
 
-As shown in this histogram, there is a wide range of GDP per capita among countries, ranging from almost zero to more than 100,000. Additionally, the histogram is severely right-skewed, with half of the countries having a GDP per capita lower than $6796.41 in 2008. This indicates that the majority of countries are poor, while only a few are considered wealthy.
+As shown in this histogram, there is a wide range of GDP per capita among countries, ranging from almost zero to more than 100,000. Additionally, the histogram is severely right-skewed, with half of the countries having a GDP per capita lower than \$6796.41 in 2008. This indicates that the majority of countries are poor, while only a few are considered wealthy.
 
 ### The difference of GDP per capita between two political systems
 
 ```{r}
 qog %>% 
-  filter(year==2008) %>% 
+  filter(year == 2008) %>% 
   mutate(chrdemo = case_when(
-    democracy==0 ~ "Autocracy",
-    democracy==1 ~ "Democracy")) %>%
-  filter(chrdemo!=is.na(chrdemo)) %>% 
-  ggplot(aes(chrdemo,gdp_per_capita))+
-  geom_boxplot(aes(fill = chrdemo, color = chrdemo))+
-  theme_minimal()+
-  scale_fill_manual(values = c( "gold", "deepskyblue3"))+
-  scale_color_manual(values = c( "orange", "#41B7C4"))+
+    democracy == 0 ~ "Autocracy",
+    democracy == 1 ~ "Democracy")) %>%
+  filter(chrdemo != is.na(chrdemo)) %>% 
+  ggplot(aes(chrdemo, gdp_per_capita)) +
+  geom_boxplot(aes(fill = chrdemo, color = chrdemo)) +
+  theme_minimal() +
+  scale_fill_manual(values = c( "gold", "deepskyblue3")) +
+  scale_color_manual(values = c( "orange", "#41B7C4")) +
   labs(
     title = "GDP Per Capita By Regime Types In 2008",
     subtitle = "US Dollar($)",
@@ -103,7 +103,7 @@ qog %>%
     caption = "Source: The Quality of Government Basic Dataset (2023)"
   ) +
   theme(
-    legend.position="none",
+    legend.position = "none",
     axis.title.x = element_blank()
     )
 
@@ -115,11 +115,11 @@ The box plot shows that while the variation is more severe, democracies have a h
 
 ```{r}
 qog %>%
-  filter(year==2008) %>% 
-  ggplot(aes(x=level_of_democracy)) +
-  geom_line(aes(y=transparency_index),color="#41B7C4") +
-  scale_y_continuous(limits = c(0,100))+
-  theme_minimal()+
+  filter(year == 2008) %>% 
+  ggplot(aes(x = level_of_democracy)) +
+  geom_line(aes(y = transparency_index), color = "#41B7C4") +
+  scale_y_continuous(limits = c(0,100)) +
+  theme_minimal() +
   labs(
   title = "The Relationship Between Transparency and Democracy",
        subtitle = "Evidence from data in 2008",
@@ -133,7 +133,7 @@ This line chart shows that as the level of democracy increases, the transparency
 ### The relationship between transparency and entrepreneurship
 
 ```{r}
-qog %>% ggplot(aes(x = transparency_index, y = new_busi_density))+
+qog %>% ggplot(aes(x = transparency_index, y = new_busi_density)) +
   geom_point(aes(color = level_of_democracy, size = gdp_per_capita),
              alpha = 0.3
              ) +
